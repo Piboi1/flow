@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-breathe: breathe 1.2s ease-in-out infinite;
+  --animate-slip: slip 0.35s ease-out forwards;
+}
+
+/* One beat every 1.2s: bright on the beat, softly receding between beats. */
+@keyframes breathe {
+  0%, 100% { opacity: 0.95; }
+  55% { opacity: 0.12; }
+}
+
+@keyframes slip {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #ffcf93;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-breathe { animation-duration: 2.4s; }
+}
