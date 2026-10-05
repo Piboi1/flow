@@ -20,6 +20,13 @@ test('taps faster than 800ms are slips and change nothing', () => {
   assert.equal(g.press(800), 'step')
 })
 
+test('slips are counted and timestamped for the visuals', () => {
+  const g = started()
+  g.press(300)
+  assert.equal(g.slips, 1)
+  assert.equal(g.lastSlipAt, 300)
+})
+
 test('a slip does not reset the rhythm clock', () => {
   const g = started()
   g.press(1200)

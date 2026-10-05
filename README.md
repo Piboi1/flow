@@ -28,7 +28,7 @@ audio (browsers require a gesture) and the climb.
 ## Layout
 
 - `src/game/` rules (`ClimbGame.js`, framework-free and tested) and the `useClimb` hook
-- `src/scene/` React Three Fiber terrain, fog/sky/lighting, snowfall
+- `src/scene/` React Three Fiber side-view scene: layered faceted mountain (`Mountain.jsx`, `world.js`), pixel climber (`Climber.jsx`, `sprite.js`), fog/sky/lighting, snowfall. It renders at ~320x180 and is scaled up unfiltered for the pixel look.
 - `src/audio/engine.js` all Tone.js synthesis (wind, footsteps, summit chord)
 - `src/ui/` metronome vignette, slip flash, intro, end screen
 

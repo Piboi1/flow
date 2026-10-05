@@ -22,6 +22,8 @@ export class ClimbGame {
     this.steps = 0
     this.startedAt = 0
     this.lastStepAt = 0
+    this.lastSlipAt = -Infinity
+    this.slips = 0
   }
 
   begin(now) {
@@ -36,7 +38,11 @@ export class ClimbGame {
   /** @returns {'step' | 'slip' | 'ignored'} */
   press(now) {
     if (!this.started || this.finished) return 'ignored'
-    if (now - this.lastStepAt < this.config.minIntervalMs) return 'slip'
+    if (now - this.lastStepAt < this.config.minIntervalMs) {
+      this.lastSlipAt = now
+      this.slips += 1
+      return 'slip'
+    }
 
     // Anything slower than minIntervalMs counts, including a late recovery tap;
     // lateness is already punished by decay.
