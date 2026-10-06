@@ -1,8 +1,8 @@
 # The Ascent
 
 A 60-second interactive transition that uses rhythmic entrainment to get you from
-procrastinating into flow. Climb a procedural blizzard mountain by tapping
-`Space` about once every 1.2 seconds.
+procrastinating into flow. You see a blizzard climb through a pair of goggles
+with a navigation display in the corner; tap `Space` about once every 1.2 seconds.
 
 ## Run
 
@@ -28,9 +28,9 @@ audio (browsers require a gesture) and the climb.
 ## Layout
 
 - `src/game/` rules (`ClimbGame.js`, framework-free and tested) and the `useClimb` hook
-- `src/scene/` React Three Fiber side-view scene: layered faceted mountain (`Mountain.jsx`, `world.js`), pixel climber (`Climber.jsx`, `sprite.js`), fog/sky/lighting, snowfall. It renders at ~320x180 and is scaled up unfiltered for the pixel look.
+- `src/scene/` React Three Fiber first-person scene: noise terrain that flattens into a summit, fog/sky/lighting, snowfall, and a small head sway on each step
 - `src/audio/engine.js` all Tone.js synthesis (wind, footsteps, summit chord)
-- `src/ui/` metronome vignette, slip flash, intro, end screen
+- `src/ui/` the goggles (frame, frost, droplets), the navigation HUD (compass, route map, altitude/heading/temp/wind/step readouts), metronome vignette, slip flash, intro, end screen
 
 At the summit the `ascent:begin-work` event fires on `window` when "Begin Work" is
 clicked; hook your own next step onto it.

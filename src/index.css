@@ -28,7 +28,3 @@ html, body, #root {
 @media (prefers-reduced-motion: reduce) {
   .animate-breathe { animation-duration: 2.4s; }
 }
-
-canvas {
-  image-rendering: pixelated;
-}

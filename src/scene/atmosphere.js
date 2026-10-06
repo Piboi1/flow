@@ -5,10 +5,10 @@ import * as THREE from 'three'
 //   25-75  brightens to white-blue as the density falls
 //   75-100 clears completely into a golden-hour sky
 const KEYS = [
-  { p: 0, color: '#2e3135', density: 0.045 },
-  { p: 25, color: '#494e56', density: 0.036 },
-  { p: 75, color: '#bcd3ee', density: 0.012 },
-  { p: 100, color: '#ffcf93', density: 0.003 },
+  { p: 0, color: '#2e3135', density: 0.07 },
+  { p: 25, color: '#494e56', density: 0.058 },
+  { p: 75, color: '#bcd3ee', density: 0.015 },
+  { p: 100, color: '#ffcf93', density: 0.0035 },
 ]
 
 const a = new THREE.Color()

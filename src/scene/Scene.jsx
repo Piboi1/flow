@@ -1,40 +1,38 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
-import Mountain from './Mountain'
-import Climber from './Climber'
+import { Canvas, useFrame } from '@react-three/fiber'
+import Terrain from './Terrain'
 import Atmosphere from './Atmosphere'
 import Snowfall from './Snowfall'
-import { CAM_DIST, CAM_FOV, createWorld } from './world'
 
-const RENDER_HEIGHT = 180 // internal pixel rows; CSS scales it up crisply
+const EYE_Y = 4.6
 
-function usePixelRatio() {
-  const calc = () => Math.min(1, RENDER_HEIGHT / window.innerHeight)
-  const [ratio, setRatio] = useState(calc)
-  useEffect(() => {
-    const onResize = () => setRatio(calc())
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
-  return ratio
+/** A wearer's head: a slow breath, and a small dip and sway with every step. */
+function HeadMotion({ game }) {
+  useFrame(({ camera, clock }) => {
+    const t = clock.elapsedTime
+    const since = (performance.now() - game.lastStepAt) / 1000
+    const step = game.started && game.steps > 0 ? Math.exp(-since / 0.3) : 0
+    const side = game.steps % 2 ? 1 : -1
+    camera.position.y = EYE_Y + Math.sin(t * 1.7) * 0.03 - step * 0.16
+    camera.position.x = Math.sin(t * 0.8) * 0.05 + side * step * 0.1
+  })
+  return null
 }
 
-/** Static side-on camera. The scene renders at ~320x180 and is scaled up unfiltered. */
+/** The camera looks up the slope; the world streams toward it. */
 export default function Scene({ game }) {
-  const world = useMemo(createWorld, [])
-  const dpr = usePixelRatio()
   return (
     <Canvas
-      style={{ position: 'fixed', inset: 0, imageRendering: 'pixelated' }}
-      dpr={dpr}
-      camera={{ fov: CAM_FOV, near: 0.5, far: 500, position: [0, 0, CAM_DIST] }}
+      style={{ position: 'fixed', inset: 0 }}
+      dpr={[1, 1.75]}
+      camera={{ fov: 62, near: 0.1, far: 400, position: [0, EYE_Y, 12] }}
+      onCreated={({ camera }) => camera.lookAt(0, 3.4, -30)}
       flat
-      gl={{ antialias: false }}
+      gl={{ antialias: true }}
     >
       <Atmosphere game={game} />
-      <Mountain game={game} world={world} />
-      <Climber game={game} world={world} />
+      <Terrain game={game} />
       <Snowfall game={game} />
+      <HeadMotion game={game} />
     </Canvas>
   )
 }

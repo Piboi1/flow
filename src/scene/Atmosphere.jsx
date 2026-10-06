@@ -40,14 +40,11 @@ export default function Atmosphere({ game }) {
       <color attach="background" args={['#2e3135']} />
       <fogExp2 ref={fog} attach="fog" args={['#2e3135', 0.07]} />
       <ambientLight ref={fill} intensity={0.9} />
-      <directionalLight ref={key} position={[-14, 22, 30]} intensity={1.6} />
-      {/* Setting sun, parked behind the farthest range (scaled so it still reads at screen size). */}
-      <group position={[0, 0, -200]} scale={[11, 11, 1]}>
-        <mesh ref={sun} position={[7, -0.2, 0]}>
-          <circleGeometry args={[2.6, 24]} />
-          <meshBasicMaterial color="#fff4d0" transparent opacity={0} fog={false} toneMapped={false} />
-        </mesh>
-      </group>
+      <directionalLight ref={key} position={[-12, 26, -18]} intensity={1.6} />
+      <mesh ref={sun} position={[0, 7, -150]}>
+        <circleGeometry args={[11, 48]} />
+        <meshBasicMaterial color="#fff4d0" transparent opacity={0} fog={false} toneMapped={false} />
+      </mesh>
     </>
   )
 }
